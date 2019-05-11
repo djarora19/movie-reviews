@@ -1,0 +1,6 @@
+*.class
+test/
+.metadata/
+RemoteSystemsTempFiles/
+Servers/
+/.recommenders/
