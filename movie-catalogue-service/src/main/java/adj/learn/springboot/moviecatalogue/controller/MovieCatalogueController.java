@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import adj.learn.springboot.moviecatalogue.model.CatalogItem;
 import adj.learn.springboot.moviecatalogue.model.Movie;
 import adj.learn.springboot.moviecatalogue.model.Rating;
+import adj.learn.springboot.moviecatalogue.model.UserRating;
 
 @RestController
 @RequestMapping ("/catalog")
@@ -29,9 +30,10 @@ public class MovieCatalogueController
 	@GetMapping ("/{userId}")
 	public List<CatalogItem> getCatalogs(@PathVariable ("userId") String userId)
 	{
-		List<Rating> ratingList = Arrays.asList(new Rating("m1", 5), new Rating("m2", 4));
+		UserRating userRating = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId,
+				UserRating.class);
 
-		return ratingList.stream().map(rating ->
+		return userRating.getRatings().stream().map(rating ->
 			{
 				Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(),
 						Movie.class);
