@@ -30,12 +30,12 @@ public class MovieCatalogueController
 	@GetMapping ("/{userId}")
 	public List<CatalogItem> getCatalogs(@PathVariable ("userId") String userId)
 	{
-		UserRating userRating = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" + userId,
+		UserRating userRating = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/" + userId,
 				UserRating.class);
 
 		return userRating.getRatings().stream().map(rating ->
 			{
-				Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(),
+				Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(),
 						Movie.class);
 
 				return new CatalogItem(movie.getName(), "Inspirational movie", rating.getRating());
@@ -52,7 +52,7 @@ public class MovieCatalogueController
 				// Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" +
 				// rating.getMovieId(),Movie.class);
 
-				Movie movie = builder.build().get().uri("http://localhost:8082/movies/" + rating.getMovieId())
+				Movie movie = builder.build().get().uri("http://movie-info-service/movies/" + rating.getMovieId())
 						.retrieve().bodyToMono(Movie.class).block();
 
 				return new CatalogItem(movie.getName(), "Inspirational movie", rating.getRating());
