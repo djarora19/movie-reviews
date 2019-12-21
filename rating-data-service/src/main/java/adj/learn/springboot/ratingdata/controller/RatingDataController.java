@@ -24,7 +24,7 @@ public class RatingDataController
 	public UserRating getUserRating(@PathVariable ("userId") String movieId)
 	{
 		UserRating userRating = new UserRating();
-		userRating.setRatings(Arrays.asList(new Rating("m1", 5), new Rating("m2", 4)));
+		userRating.setRatings(Arrays.asList(new Rating("m1", 100), new Rating("m2", 200)));
 		userRating.setUserName("Test User");
 
 		return userRating;

@@ -38,7 +38,7 @@ public class MovieCatalogueController
 				Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(),
 						Movie.class);
 
-				return new CatalogItem(movie.getName(), "Inspirational movie", rating.getRating());
+				return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
 			}).collect(Collectors.toList());
 	}
 
